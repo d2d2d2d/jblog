@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.douzone.jblog.service.UserService;
 import com.douzone.jblog.vo.UserVo;
 
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -45,6 +44,16 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "user/login";
+	}
+	
+	@RequestMapping(value="/auth", method=RequestMethod.POST)
+	public void auth() {
+		
+	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public void logout() {
+		
 	}
 
 

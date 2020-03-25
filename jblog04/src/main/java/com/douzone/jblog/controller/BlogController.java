@@ -108,15 +108,15 @@ public class BlogController {
 
 		String url = fileUploadService.restore(multipartFile);
 
-		BlogVo vo = new BlogVo();
+		BlogVo blogVo = new BlogVo();
 
-		vo.setId(id);
-		vo.setLogo(url);
-		vo.setTitle(title);
+		blogVo.setId(id);
+		blogVo.setLogo(url);
+		blogVo.setTitle(title);
 
-		blogService.update(vo);
+		blogService.update(blogVo);
 
-		model.addAttribute("vo", vo);
+		model.addAttribute("blogVo", blogVo);
 		return "redirect:/{id}";
 	}
 }

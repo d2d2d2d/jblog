@@ -23,7 +23,7 @@
 
 	<!-- Interceptors -->
 	<mvc:interceptors>
-		<!-- <mvc:interceptor> <mvc:mapping path="/guestbook/**" /> <bean class="com.douzone.mysite.interceptor.MyInterceptor01" 
+		<!-- <mvc:interceptor> <mvc:mapping path="/guestbook/**" /> <bean class="com.douzone.jblog.interceptor.MyInterceptor01" 
 			/> </mvc:interceptor> -->
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth" />

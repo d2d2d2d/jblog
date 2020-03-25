@@ -28,13 +28,15 @@ public class BlogService {
 	public Map<String, Object> getAll(String id, Long categoryNo, Long postNo) {
 		BlogVo blogVo = blogRepository.findView(id);
 		List<CategoryVo> categoryList = getCategory(id);
-		List<PostVo> postList = getPost(categoryNo);
+		List<PostVo> postList = getPostList(categoryNo);
+		PostVo postVo = getPost(categoryNo);
 		List<CategoryVo> categoryListPlusTotalPost = getCategoryPlusTotalPost(id);
 
 		ModelMap modelMap = new ModelMap();
 		modelMap.put("blogVo", blogVo);
 		modelMap.put("categoryList", categoryList);
 		modelMap.put("postList", postList);
+		modelMap.put("postVo", postVo);
 		modelMap.put("categoryListPlusTotalPost", categoryListPlusTotalPost);
 		return modelMap;
 	}
@@ -64,7 +66,11 @@ public class BlogService {
 	}
 
 	//post
-	public List<PostVo> getPost(Long no) {
+	public List<PostVo> getPostList(Long no) {
+		return postRepository.getPostList(no);
+	}
+	
+	public PostVo getPost(Long no) {
 		return postRepository.getPost(no);
 	}
 	

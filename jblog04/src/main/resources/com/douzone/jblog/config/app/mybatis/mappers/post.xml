@@ -3,14 +3,6 @@
 
 <mapper namespace="post">
 
-	<select id="findAll" parameterType="Long" resultType="postvo">
-		<![CDATA[
-          select no, title, contents, reg_date, category_no
-            from post
-           where category_no = #{no };
-		]]>
-	</select>
-
 	<insert id="insert" parameterType="postvo">
 		<![CDATA[
           insert 
@@ -22,5 +14,21 @@
 			last_insert_id()
 		</selectKey>
 	</insert>
+
+	<select id="findAll" parameterType="Long" resultType="postvo">
+		<![CDATA[
+          select no, title, contents, reg_date, category_no
+            from post
+           where category_no = #{no };
+		]]>
+	</select>
+
+	<select id="find" parameterType="Long" resultType="postvo">
+		<![CDATA[
+          select no, title, contents, reg_date, category_no
+            from post
+           where category_no = #{no };
+		]]>
+	</select>
 
 </mapper>

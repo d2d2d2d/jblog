@@ -17,8 +17,12 @@ public class PostRepository {
 		return sqlSession.insert("post.insert", vo);
 	}
 
-	public List<PostVo> getPost(Long no) {
+	public List<PostVo> getPostList(Long no) {
 		return sqlSession.selectList("post.findAll", no);
+	}
+
+	public PostVo getPost(Long no) {
+		return sqlSession.selectOne("post.find", no);
 	}
 
 }
