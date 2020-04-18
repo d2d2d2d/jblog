@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.jblog.dto.JsonResult;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.FileUploadService;
 import com.douzone.jblog.vo.BlogVo;
@@ -57,7 +60,7 @@ public class BlogController {
 		return "blog/blog-admin-basic";
 	}
 
-	@RequestMapping(value="/admin/category", method=RequestMethod.GET)
+	@GetMapping("/admin/category")
 	public String adminCategory( 
 			@PathVariable String id,
 			HttpServletRequest request) {
@@ -66,12 +69,12 @@ public class BlogController {
 		return "blog/blog-admin-category";
 	}
 
-	@RequestMapping(value="/admin/category", method=RequestMethod.POST)
-	public String addCategory( 
+	@PostMapping("/admin/category")
+	public JsonResult addCategory( 
 			@PathVariable String id,
 			CategoryVo vo) {
 		blogService.addCategory(vo);
-		return "redirect:/{id}/admin/category";
+		return JsonResult.success(vo);
 	}
 
 	@RequestMapping(value="/admin/category/delete/{no}")

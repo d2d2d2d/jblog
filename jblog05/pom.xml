@@ -22,6 +22,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
+			
 			<!-- JCL 제외 -->
 			<exclusions>
 				<exclusion>

@@ -28,11 +28,11 @@
 
 	<select id="getCategoryPlusTotalPost" resultType="categoryvo">
 		<![CDATA[
-		    select count(category.no) as postCount, category.no , category.name, category.description
-		      from post, category 
-		     where post.category_no = #{no }
-		       and category.id = #{id }
-		  group by category_no;
+			select c.no, c.name, count(p.category_no) as count, c.description, c.reg_date, c.id
+			from category c left outer join post p on c.no=p.category_no 
+			where id= #{id }
+			group by c.no 
+			order by c.no desc;
 		]]>
 	</select>
 
