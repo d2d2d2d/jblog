@@ -64,8 +64,7 @@
 			return;
 		}
 		isFetching = true;
-		$
-				.ajax({
+		$.ajax({
 					url : '${pageContext.request.contextPath }/${authUser.id}/api/blog/list',
 					async : true,
 					type : 'get',
@@ -89,6 +88,30 @@
 					}
 				});
 	}
+	$(document).on('click','#list-category a', function(event){
+		event.preventDefault();
+		var deleteno = $(this).data('no');
+		$(this).parents('tr').remove();
+		console.log("d")
+		$.ajax({
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/delete/' + deleteno,
+			async: true,
+			type: 'delete',
+			dataType: 'json',
+			data: '',
+			success: function(response){
+				if(response.result != "success"){
+					console.error(response.message);
+					return;
+				}
+			},
+			error: function(xhr, status, e){
+				console.error(status + ":" + e);
+			}
+		});
+		
+		
+	});
 
 	$(function() {
 		// 입력폼 submit 이벤트
@@ -130,11 +153,10 @@
 												return;
 											}
 
-											// rendering
-											// render(response.data, true);
+											response.data.pageContext = "${pageContext.request.contextPath}";
 											var html = listItemTemplate
 													.render(response.data);
-											$("#list-category").prepend(html);
+											$("#list-category").append(html);
 
 											// form reset
 											$("#add-form")[0].reset();

@@ -77,13 +77,13 @@ public class BlogController {
 		return JsonResult.success(vo);
 	}
 
-	@RequestMapping(value="/admin/category/delete/{no}")
-	public String deleteCategory( 
-			@PathVariable("no") Long no
-			) {
-		blogService.deleteCategory(no);
-		return "redirect:/{id}/admin/category";
-	}
+//	@RequestMapping(value="/admin/category/delete/{no}")
+//	public String deleteCategory( 
+//			@PathVariable("no") Long no
+//			) {
+//		blogService.deleteCategory(no);
+//		return "redirect:/{id}/admin/category";
+//	}
 
 	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
 	public String adminWrite(

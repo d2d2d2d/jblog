@@ -8,8 +8,18 @@
 		<td><%=vo.name%></td>
 		<td><%=vo.postCount%></td>
 		<td><%=vo.description%></td>
-		<td><a href="<%=pageContext%>/<%=vo.id%>/admin/category/delete/<%=vo.no%>">
+		<% 
+			if(vo.postCount == 0) {
+		%> 
+		<td><a href="<%=pageContext%>/<%=vo.id%>/admin/category/delete/<%=vo.no%>" data-no = '<%=vo.no%>'>
 		<img src="<%=pageContext%>/assets/images/delete.jpg"></a></td>
+		<%
+		} else {
+		%>
+		<td></td>
+		<%
+		}
+		%>
 	</tr>
 <%
 	}

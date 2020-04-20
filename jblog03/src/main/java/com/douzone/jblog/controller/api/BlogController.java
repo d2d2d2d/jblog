@@ -5,15 +5,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.jblog.dto.JsonResult;
 import com.douzone.jblog.service.BlogService;
-import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
 
 
@@ -38,12 +39,13 @@ public class BlogController {
 		blogService.addCategory(vo);
 		return JsonResult.success(vo);
 	}
-//	@DeleteMapping("/delete/{no}")
-//	public JsonResult delete(
-//			@PathVariable("no") Long no,
-//			@RequestParam(value="password", required=true, defaultValue="") String password) {
-//		boolean result = BlogService.deleteMessage(no, password);
-//		return JsonResult.success(result ? no : -1);
-//
-//	}
+	@DeleteMapping("/delete/{no}")
+	public JsonResult delete(
+			@PathVariable("no") Long no,
+			@RequestParam(value="password", required=true, defaultValue="") String password) {
+		boolean result = blogService.deleteCategory(no);
+
+		return JsonResult.success(result ? no : -1);
+
+	}
 }
