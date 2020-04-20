@@ -162,8 +162,6 @@
 						<th>설명</th>
 						<th>삭제</th>
 					</tr>
-					<tr>
-					</tr>
 				</table>
 
 				<h4 class="n-c">새로운 카테고리 추가</h4>
