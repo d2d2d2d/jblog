@@ -40,7 +40,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}${vo.logo }">
+				<img src="${pageContext.request.contextPath}${blogVo.logo }">
 			</div>
 		</div>
 
