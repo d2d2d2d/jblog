@@ -1,0 +1,1 @@
+<img src="<%=pageContext%> id="image_container">
