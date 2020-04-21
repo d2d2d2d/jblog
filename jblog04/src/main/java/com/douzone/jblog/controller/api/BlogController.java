@@ -39,7 +39,6 @@ public class BlogController {
 		blogService.addCategory(vo);
 		return JsonResult.success(vo);
 	}
-	
 	@DeleteMapping("/delete/{no}")
 	public JsonResult delete(
 			@PathVariable("no") Long no,
