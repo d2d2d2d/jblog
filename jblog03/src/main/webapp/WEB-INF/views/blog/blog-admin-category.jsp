@@ -92,7 +92,6 @@
 		event.preventDefault();
 		var deleteno = $(this).data('no');
 		$(this).parents('tr').remove();
-		console.log("d")
 		$.ajax({
 			url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/delete/' + deleteno,
 			async: true,
@@ -109,7 +108,6 @@
 				console.error(status + ":" + e);
 			}
 		});
-		
 		
 	});
 

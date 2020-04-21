@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,8 +36,9 @@ public class BlogController {
 			@PathVariable String id,
 			@PathVariable Optional<Long> pathNo1,
 			@PathVariable Optional<Long> pathNo2,
-			ModelMap modelMap) {
-
+			ModelMap modelMap,
+			HttpServletRequest request) {
+		System.out.println("aaa");
 		Long categoryNo = 0L;
 		Long postNo = 0L;
 
@@ -48,12 +50,16 @@ public class BlogController {
 		}
 
 		modelMap.addAllAttributes(blogService.getAll( id, categoryNo, postNo ));
-
+		BlogVo blogVo = (BlogVo) modelMap.get("blogVo");
+		System.out.println("aaa"+ modelMap.get("blogVo"));
+		HttpSession session = request.getSession(true);
+		session.setAttribute("blogVo", blogVo);
 		return "blog/blog-main";
 	}
 
 	@RequestMapping( "/admin/basic" )
-	public String adminBasic( @PathVariable String id ) {
+	public String adminBasic(
+			@PathVariable String id) {
 		return "blog/blog-admin-basic";
 	}
 
@@ -104,7 +110,8 @@ public class BlogController {
 			@PathVariable String id,
 			@RequestParam(value="logo-file") MultipartFile multipartFile,
 			@RequestParam(value="title", required=true, defaultValue="") String title,
-			Model model) {
+			Model model,
+			HttpServletRequest request) {
 
 		String url = fileUploadService.restore(multipartFile);
 
@@ -116,7 +123,8 @@ public class BlogController {
 
 		blogService.update(blogVo);
 
-		model.addAttribute("blogVo", blogVo);
+		HttpSession session = request.getSession(true);
+		session.setAttribute("blogVo", blogVo);
 		return "redirect:/{id}";
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,8 +39,8 @@ public class BlogController {
 			@PathVariable String id,
 			@PathVariable Optional<Long> pathNo1,
 			@PathVariable Optional<Long> pathNo2,
-			ModelMap modelMap) {
-
+			ModelMap modelMap,
+			HttpServletRequest request) {
 		Long categoryNo = 0L;
 		Long postNo = 0L;
 
@@ -51,7 +52,10 @@ public class BlogController {
 		}
 
 		modelMap.addAllAttributes(blogService.getAll( id, categoryNo, postNo ));
-
+		BlogVo blogVo = (BlogVo) modelMap.get("blogVo");
+		System.out.println("aaa"+ modelMap.get("blogVo"));
+		HttpSession session = request.getSession(true);
+		session.setAttribute("blogVo", blogVo);
 		return "blog/blog-main";
 	}
 
@@ -77,14 +81,6 @@ public class BlogController {
 		return JsonResult.success(vo);
 	}
 
-//	@RequestMapping(value="/admin/category/delete/{no}")
-//	public String deleteCategory( 
-//			@PathVariable("no") Long no
-//			) {
-//		blogService.deleteCategory(no);
-//		return "redirect:/{id}/admin/category";
-//	}
-
 	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
 	public String adminWrite(
 			@PathVariable String id,
@@ -107,19 +103,19 @@ public class BlogController {
 			@PathVariable String id,
 			@RequestParam(value="logo-file") MultipartFile multipartFile,
 			@RequestParam(value="title", required=true, defaultValue="") String title,
-			Model model) {
+			Model model,
+			HttpServletRequest request) {
 
 		String url = fileUploadService.restore(multipartFile);
 
-		BlogVo vo = new BlogVo();
+		BlogVo blogVo = new BlogVo();
 
-		vo.setId(id);
-		vo.setLogo(url);
-		vo.setTitle(title);
+		blogVo.setId(id);
+		blogVo.setLogo(url);
+		blogVo.setTitle(title);
 
-		blogService.update(vo);
+		blogService.update(blogVo);
 
-		model.addAttribute("vo", vo);
 		return "redirect:/{id}";
 	}
 }

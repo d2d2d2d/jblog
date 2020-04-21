@@ -14,6 +14,7 @@
 <body>
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/includes/admin-header.jsp" />
+		
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<jsp:include page="/WEB-INF/views/includes/admin-menu.jsp" />
@@ -23,7 +24,7 @@
 					<table class="admin-config">
 						<tr>
 							<td class="t">블로그 제목</td>
-							<td><input type="text" size="40" name="title"></td>
+							<td><input type="text" size="40" name="title" value="a${BlogVo.title }"></td>
 						</tr>
 						<tr>
 							<td class="t">로고이미지</td>
