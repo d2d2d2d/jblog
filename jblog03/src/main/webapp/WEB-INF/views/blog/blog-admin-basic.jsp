@@ -16,39 +16,40 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script>
-var imageTemplate = new EJS(
-		{
-			url : "${pageContext.request.contextPath }/assets/js/ejs/image-template.ejs"
-		});
+	var imageTemplate = new EJS(
+			{
+				url : "${pageContext.request.contextPath }/assets/js/ejs/image-template.ejs"
+			});
 	$(function() {
 		// 입력폼 submit 이벤트
-		$('#add-form')
-				.submit(
-						function(event) {
+		$('#image-select')
+				.on('click', function(event) {
 							event.preventDefault();
 
 							var vo = {};
 							vo.name = $("#image_container").val();
-							$
-									.ajax({
-										//url : '${pageContext.request.contextPath }/${authUser.id}/api/blog/uploadImage',
-										url : "",
-										type : 'get',
-										dataType : 'json',
-										success : function(response) {
-											if (response.result != "success") {
-												console.error(response.message);
-												return;
-											};
-											response.data.pageContext = "${pageContext.request.contextPath}${blogVo.logo }";
-											var html = imageTemplate
-													.render(response.data);
-											$("#image_container").append(html);
-										},
-										error : function(xhr, status, e) {
-											console.error(status + ":" + e);
-										}
-									});
+							$.ajax({
+								//url : '${pageContext.request.contextPath }/${authUser.id}/api/blog/uploadImage',
+								url : "",
+								type : 'get',
+								dataType : 'json',
+								success : function(response) {
+									if (response.result != "success") {
+										console.error(response.message);
+										return;
+									};
+									var strDOM  = '<img src="${pageContext.request.contextPath}${blogVo.logo }" id="image_container">'
+								//	response.data.pageContext = "${pageContext.request.contextPath}${blogVo.logo }";
+								//	console.log(response.data.pageContext);
+								//	var html = imageTemplate.render(response.data);	//render, data 없음
+								//	$("#image_container").append(html);
+								var $imageContainer = $("#image_container"); 
+								$imageContainer.append(strDOM);
+								},
+								error : function(xhr, status, e) {
+									console.error(status + ":" + e);
+								}
+							});
 						});
 
 	});
@@ -60,7 +61,7 @@ var imageTemplate = new EJS(
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<jsp:include page="/WEB-INF/views/includes/admin-menu.jsp" />
-				<form id="add-form"
+				<form
 					action="${pageContext.request.contextPath }/${authUser.id}/upload"
 					method="post" enctype="multipart/form-data">
 					<table class="admin-config">
@@ -72,11 +73,12 @@ var imageTemplate = new EJS(
 						<tr>
 							<td class="t">로고이미지</td>
 							<td><img
-								src="${pageContext.request.contextPath}${blogVo.logo } id="image_container"></td>
+								src="${pageContext.request.contextPath}${blogVo.logo }"
+								id="image_container"></td>
 						</tr>
 						<tr>
 							<td class="t">&nbsp;</td>
-							<td><input type="file" name="logo-file"></td>
+							<td><input type="file" id="image-select" name="logo-file"></td>
 						</tr>
 						<tr>
 							<td class="t">&nbsp;</td>

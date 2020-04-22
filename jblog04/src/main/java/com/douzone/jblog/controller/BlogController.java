@@ -38,7 +38,6 @@ public class BlogController {
 			@PathVariable Optional<Long> pathNo2,
 			ModelMap modelMap,
 			HttpServletRequest request) {
-		System.out.println("aaa");
 		Long categoryNo = 0L;
 		Long postNo = 0L;
 
@@ -51,7 +50,6 @@ public class BlogController {
 
 		modelMap.addAllAttributes(blogService.getAll( id, categoryNo, postNo ));
 		BlogVo blogVo = (BlogVo) modelMap.get("blogVo");
-		System.out.println("aaa"+ modelMap.get("blogVo"));
 		HttpSession session = request.getSession(true);
 		session.setAttribute("blogVo", blogVo);
 		return "blog/blog-main";

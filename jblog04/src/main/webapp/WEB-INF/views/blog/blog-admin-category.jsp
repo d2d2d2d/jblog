@@ -75,7 +75,6 @@
 							console.error(response.message);
 							return;
 						}
-
 						// response로 보냄
 						response.pageContext = "${pageContext.request.contextPath}";
 						var html = listTemplate.render(response);
