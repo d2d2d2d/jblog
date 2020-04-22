@@ -5,7 +5,7 @@
 	pageEncoding="utf-8"%>
 <!doctype html>
 <div id="header">
-	<h1>s${blogVo.title }</h1>
+	<h1>${blogVo.title }</h1>
 	<ul>
 		<c:choose>
 			<c:when test="${empty authUser }">
