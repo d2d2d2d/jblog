@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,8 @@ public class BlogController {
 			@PathVariable String id,
 			@PathVariable Optional<Long> pathNo1,
 			@PathVariable Optional<Long> pathNo2,
-			ModelMap modelMap) {
+			ModelMap modelMap,
+			HttpServletRequest request) {
 
 		Long categoryNo = 0L;
 		Long postNo = 0L;
@@ -48,7 +50,9 @@ public class BlogController {
 		}
 
 		modelMap.addAllAttributes(blogService.getAll( id, categoryNo, postNo ));
-
+		BlogVo blogVo = (BlogVo) modelMap.get("blogVo");
+		HttpSession session = request.getSession(true);
+		session.setAttribute("blogVo", blogVo);
 		return "blog/blog-main";
 	}
 
